@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block title %}Последние обновления{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h4> Последние посты по вашим подпискам:</h4>
+    {% include "menu.html" %}
+
+
+        {% for post in page %}
+            {% include "post_item.html" with post=post %}
+        {% endfor %}
+
+
+        {% if page.has_other_pages %}
+            {% include "paginator.html" with items=page paginator=paginator%}
+        {% endif %}
+    </div>
+{% endblock %}
