@@ -139,8 +139,9 @@ class TestCheckImgTegAppearance(TestCase):
         )
         self.client.force_login(self.user)
 
+    @override_settings(CACHES=DUMMY_CACHE)
     def test_post_view_have_img_tag(self):
-        with open("C:/Dev/hw04_tests/test_files/file.png", "rb") as img:
+        with open('test_files/file.png', 'rb') as img:
             response = self.client.post(
                 reverse(
                     "post_edit",
@@ -154,7 +155,7 @@ class TestCheckImgTegAppearance(TestCase):
 
     @override_settings(CACHES=DUMMY_CACHE)
     def test_group_view_have_img_tag(self):
-        with open("C:/Dev/hw04_tests/test_files/file.png", "rb") as img:
+        with open('test_files/file.png', 'rb') as img:
             response = self.client.post(
                 reverse(
                     "post_edit",
@@ -198,7 +199,7 @@ class TestUngraphicalUploadProtection(TestCase):
         self.client.force_login(self.user)
 
     def test_ungraphical_upload_protection(self):
-        with open("C:/Dev/hw04_tests/test_files/text_file.txt", "rb") as img:
+        with open('test_files/text_file.txt', 'rb') as img:
             response = self.client.post(
                 reverse(
                     "post_edit",

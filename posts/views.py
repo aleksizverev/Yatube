@@ -50,7 +50,7 @@ def profile(request, username):
     follow_status = None
     if request.user.username:
         follow_status = Follow.objects.filter(
-            user=request.user, author=profile)
+            user=request.user, author=profile).exists()
 
     return render(
         request,
@@ -67,14 +67,12 @@ def profile(request, username):
 def post_view(request, username, post_id):
     profile = get_object_or_404(User, username=username)
     profile_post = get_object_or_404(Post, author=profile, pk=post_id)
-    comments = profile_post.comment_on_post.order_by("-created")
     return render(
         request,
         "post_view.html",
         {
             "profile": profile,
             "profile_post": profile_post,
-            "post_comments": comments,
             "form": CommentForm(),
         },
     )
@@ -143,13 +141,9 @@ def follow_index(request):
 @login_required
 def profile_follow(request, username):
     profile_to_follow = get_object_or_404(User, username=username)
-    follow_check = Follow.objects.filter(
-        user=request.user, author=profile_to_follow).exists()
-    if follow_check:
-        return redirect("profile", username=username)
-    else:
-        if request.user != profile_to_follow:
-            Follow.objects.create(user=request.user, author=profile_to_follow)
+    if request.user != profile_to_follow:
+        Follow.objects.get_or_create(
+            user=request.user, author=profile_to_follow)
     return redirect("profile", username=username)
 
 

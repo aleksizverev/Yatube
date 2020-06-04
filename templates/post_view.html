@@ -32,7 +32,7 @@
         <div class="col-md-9">
                 <div class="card mb-3 mt-1 shadow-sm">
                 {% include "post_item.html" with post=profile_post %}
-                {% include "comments.html" %}
+                {% include "comments.html" with post_comments=profile_post.comment_on_post.all %}
      </div>
     </div>
 </main>
