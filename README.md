@@ -4,5 +4,3 @@
 #### Стек
 * [Django](https://www.djangoproject.com/) 
 * [PostgreSQl](https://www.postgresql.org/)
-* [Docker](https://www.docker.com/)
-* [Docker compose](https://docs.docker.com/compose/)
